@@ -1,0 +1,14 @@
+Package: smumisc
+Title: Miscellaneous R functions mainly related to climate model data analysis and statistics.
+Version: 0.01
+Author: Stefan Muthers
+Maintainer: Stefan Muthers <smu@z107.de>
+Description: Contains a number of functions useful to extract variables from
+        climate model data (netcdf files), for statistical analysis
+        (seasonal or annual averages, climatologies, smoothing, ...) and data
+        presentation.
+Depends: R (>= 3.1.2)
+Suggests: stringr,
+    testthat
+License: GPL (>= 2)
+LazyData: true
