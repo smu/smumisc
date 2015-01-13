@@ -10,10 +10,10 @@
 #'                                   as.Date('2000-12-31'),
 #'                                   by = '1 months'),
 #'                                   value = rnorm(11*12))
-#' SeasonalMeans(mydata, 'DJF')
-#' SeasonalMeans(mydata, 'DJFMAM')
+#' SeasonalMean(mydata, 'DJF')
+#' SeasonalMean(mydata, 'DJFMAM')
 
-SeasonalMeans <- function(data, season, na.rm=FALSE){
+SeasonalMean <- function(data, season, na.rm=FALSE){
     library(stringr)
     months <- c('J','F','M','A','M','J','J','A','S','O','N','D')
     # check if season is valid
