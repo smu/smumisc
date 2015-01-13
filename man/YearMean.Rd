@@ -15,7 +15,7 @@ YearMean(data, varname = "value", na.rm = TRUE)
 stripped before the computation proceeds. Defaults to TRUE}
 }
 \value{
-data table with seasonal averaged values.
+data table with annual mean values.
 }
 \description{
 Calculate annual means from data.table

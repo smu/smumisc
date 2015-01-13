@@ -4,7 +4,7 @@
 #' @param varname name of the variable, defaults to 'value''
 #' @param na.rm a logical value indicating whether 'NA' values should be 
 #'        stripped before the computation proceeds. Defaults to TRUE
-#' @return data table with seasonal averaged values.
+#' @return data table with annual mean values.
 #' @examples
 #'  mydata <- data.frame(date = seq.Date(as.Date('1990-01-01'),
 #'                                   as.Date('2000-12-31'),
