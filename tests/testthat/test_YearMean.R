@@ -18,10 +18,20 @@ test_that('Example netcdf file exists', {
           expect_that(fname != '', is_true())
 })
 
-tmpfile <- tempfile()
+tmpfile <- tempfile(pattern='1')
 CDO('-yearmean -fldmean ',fname,' ',tmpfile)
+tmpfile2 <- tempfile(pattern='2')
+CDO('-fldmean ',fname,' ',tmpfile2)
 
-# TODO: load file when GetVarNCDFTLL are available
+d_ym_cdo <- GetVarNCDF(tmpfile, 'slp', 'time')
+d <- GetVarNCDF(tmpfile2, 'slp', 'time')
+d_ym <- na.omit(YearMean(d))
+
+test_that('YearMean == "cdo -yearmean"', {
+          expect_equal(d_ym$value[1], d_ym_cdo$value[1], tolerance = 1e-7)
+          expect_equal(d_ym$value[nrow(d_ym)], d_ym_cdo$value[nrow(d_ym_cdo)], tolerance = 1e-7)
+})
+
 
 
 unlink(tmpfile)

@@ -8,8 +8,8 @@ test_that('Example netcdf file exists', {
 })
 
 test_that('cdo is available', {
-          expect_that(SystemCmd('which cdo') == 0, is_true())
-          expect_that(SystemCmd('which cdo', intern=T) != '', is_true())
+          expect_that(SystemCmd('which cdo', ignore.stdout=TRUE) == 0, is_true())
+          expect_that(SystemCmd('which cdo', intern=TRUE) != '', is_true())
 })
 
 tmpfile <- tempfile()

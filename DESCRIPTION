@@ -8,7 +8,6 @@ Description: Contains a number of functions useful to extract variables from
         (seasonal or annual averages, climatologies, smoothing, ...) and data
         presentation.
 Depends: R (>= 3.0.0)
-Suggests: stringr,
-    testthat
+Suggests: stringr, testthat, ncdf
 License: GPL (>= 2)
 LazyData: true
