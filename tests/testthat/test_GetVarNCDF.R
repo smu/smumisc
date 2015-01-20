@@ -100,6 +100,41 @@ test_that('Combination of GetVarNCDF and Yearmean equals cdo results', {
 })
 
 
+
+
+
+
+# test shortcut functions
+test_that('GetVarNCDFT works as expected',{
+          expect_that(all(dymfld == GetVarNCDFT(ymfldmeanfile, 'temp2')), is_true())
+          #  expect_that(all(dtimemean == GetVarNCDFLL(timemeanfile, 'temp2')), is_true())
+})
+
+d <- GetVarNCDFTLL('example2.nc', 'tos')
+d <- subset(d, lat == 0.5 & lon == 1)
+
+test_that('GetVarNCDFTLL works as expected',{
+          expect_that(all(dorig == GetVarNCDFTLL(fname, 'temp2')), is_true())
+          expect_that(all(dex2_tos == d), is_true())
+})
+
+# GetVarNCDFLL with lat|lev dimension
+tmp <- tempfile(pattern='ex1a')
+CDO('-zonmean example1.nc ',tmp)
+d2 <- GetVarNCDFLL(tmp, 'ua')
+unlink(tmp)
+
+test_that('GetVarNCDFLL works as expected',{
+          expect_that(all(names(d2) == c('lat','plev','value')), is_true())
+})
+
+# GetVarNCDFLLL with lon|lat|lev dimension
+test_that('GetVarNCDFLL works as expected',{
+          expect_that(all(names(GetVarNCDFLLL('example1.nc', 'ua')) == c('lon','lat','plev','value')), is_true())
+})
+
+
+
 # clean up 
 unlink(ymfldmeanfile)
 unlink(timemeanfile)

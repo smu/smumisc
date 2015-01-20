@@ -75,10 +75,10 @@ ConvertTime  <- function(time, unit){
 
 #' Extracts data from netcdf file and returns a data.frame.
 #'
-#' @param ncfile filename of the netcdf file
-#' @param varname name of the variable to extract
+#' @param ncfile filename of the netcdf file.
+#' @param varname name of the variable to extract. 
 #' @param vector of dimension variables, e.g, c('time','lat','lev'). 
-#'        If all dimensions are zero, e.g., global mean values, and empty vector or NULL 
+#'        For dimensionless variables, e.g, global mean values, and empty vector or NULL
 #'        should be used.
 #' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
 #'        This parameter is only used, when a date/time variable is found.
@@ -187,3 +187,285 @@ GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
 }
 
 
+#' Returns dimension of a netcdf variable.
+#'
+#' @param ncfile filename of the netcdf file.
+#' @param varname name of the variable to extract. 
+#' @return a vector of dimensions names.
+#'
+GetDimNCDF <- function(ncfile, varname){
+    require(ncdf, quietly = TRUE)
+    f = open.ncdf(ncfile)
+    dims.found <- NULL
+    for(i in seq_along(f$var[[varname]]$dim)){
+        vdim <- f$var[[varname]]$dim[[i]]
+        if(vdim$len > 1){
+            dims.found <- c(dims.found, vdim$name)
+        }
+    }
+    close.ncdf(f)
+    return(dims.found)
+}
+
+
+
+#' GetVarNCDFT is a shortcut for GetVarNCDF(ncfile, varname, c('time')
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
+#' @return A data frame containing two columns (date, value)
+#' @examples
+#'      
+#'      ncfile <- 'example.nc'
+#'      d <- GetVarNCDF(ncfile, 'slp')
+#'
+#'
+GetVarNCDFT <- function(ncfile, varname, convert_date = TRUE) {
+    return(GetVarNCDF(ncfile, varname, c('time'), 
+                        convert_date = convert_date))
+}
+
+
+#' GetVarNCDFTLL extract variable with time dimensions and two of lat|lon|lev.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
+#' @return A data frame containing four columns.
+#' @examples
+#'      
+#'      ncfile <- 'example.nc'
+#'      d <- GetVarNCDF(ncfile, 'slp')
+#'
+#'
+GetVarNCDFTLL <- function(ncfile, varname, convert_date = TRUE) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=2){
+        msg <- paste("Found more|less than two dimensions:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    finddims <- c(finddims, 'time')
+    return(GetVarNCDF(ncfile, varname, finddims, 
+                        convert_date = convert_date))
+}
+
+
+#'
+#' GetVarNCDFLL extract variable with two dimensions of lat|lon|lev.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @return A data frame containing three columns.
+#'      
+#'
+#'
+GetVarNCDFLL <- function(ncfile, varname) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=2){
+        msg <- paste("Found more|less than two dimensions:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    return(GetVarNCDF(ncfile, varname, finddims))
+}
+
+
+
+
+#'
+#' GetVarNCDFTL extract variable with time dimension and one of lat|lon|lev.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @return A data frame containing three columns.
+#'      
+#'
+#'
+GetVarNCDFTL <- function(ncfile, varname, convert_date = TRUE) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=1){
+        msg <- paste("Found more|less than one dimensions:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    finddims <- c(finddims, 'time')
+
+    return(GetVarNCDF(ncfile, varname, finddims, 
+                        convert_date = convert_date))
+}
+
+#'
+#' GetVarNCDFLLL extract variable with lat, lon, and lev dimension.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @return A data frame containing four columns.
+#'      
+#'
+#'
+GetVarNCDFLLL <- function(ncfile, varname) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=3){
+        msg <- paste("Found more|less than three dimensions:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    return(GetVarNCDF(ncfile, varname, finddims))
+}
+
+
+#'
+#' GetVarNCDFTLLL extract variable with time, lat, lon, and lev dimension.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @return A data frame containing five columns.
+#'      
+#'
+#'
+GetVarNCDFTLLL <- function(ncfile, varname, convert_date = TRUE) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=3){
+        msg <- paste("Found more|less than three dimensions:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    finddims <- c(finddims, 'time')
+    return(GetVarNCDF(ncfile, varname, finddims, 
+                        convert_date = convert_date))
+}
+
+#'
+#' GetVarNCDFTL extract variable with one dimension of lat|lon|lev.
+#'
+#' @param ncfile filename of the netcdf file
+#' @param varname name of the variable to extract
+#' @return A data frame containing two columns.
+#'      
+#'
+#'
+GetVarNCDFL <- function(ncfile, varname) {
+    dim.names <- GetDimNCDF(ncfile, varname)
+    finddims <- c()
+    LATNAMES <- c('lat','Lat','latitude','Latitude')
+    for(lat in LATNAMES){
+        if(lat %in% dim.names){
+            finddims <- c(finddims, lat)
+        }
+    }
+    LONNAMES <- c('lon','Lon','longitude','Longitude')
+    for(lon in LONNAMES){
+        if(lon %in% dim.names){
+            finddims <- c(finddims, lon)
+        }
+    }
+    LEVNAMES <- c('lev','Lev','plev')
+    for(lev in LEVNAMES){
+        if(lev %in% dim.names){
+            finddims <- c(finddims, lev)
+        }
+    }
+    # more than two of lat|lon|lev were found
+    if(length(finddims)!=1){
+        msg <- paste("Found more|less than one dimension:", paste(finddims, collapse=','))
+        stop(msg)
+    }
+    return(GetVarNCDF(ncfile, varname, finddims))
+}

@@ -7,15 +7,15 @@
 GetVarNCDF(ncfile, varname, finddim, convert_date = TRUE)
 }
 \arguments{
-\item{ncfile}{filename of the netcdf file}
+\item{ncfile}{filename of the netcdf file.}
 
-\item{varname}{name of the variable to extract}
+\item{varname}{name of the variable to extract.}
 
 \item{convert_date}{Convert time information into Date/Datetime object. Defaults to TRUE.
 This parameter is only used, when a date/time variable is found.}
 
 \item{vector}{of dimension variables, e.g, c('time','lat','lev').
-If all dimensions are zero, e.g., global mean values, and empty vector or NULL
+For dimensionless variables, e.g, global mean values, and empty vector or NULL
 should be used.}
 }
 \value{
