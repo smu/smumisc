@@ -5,7 +5,7 @@
 #'            http://en.wikipedia.org/wiki/Gaussian_function
 #'
 #' @param x data vector 
-#' @param win window size
+#' @param win window size. For sides==2 the actual window size is (win*2)+1.
 #' @param sides left sided (1) or two-sided (2, default) filter. 
 #'        Right sided filter is not yet implemented.
 #' @return vector with filtered values.
