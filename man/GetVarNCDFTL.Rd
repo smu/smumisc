@@ -10,6 +10,9 @@ GetVarNCDFTL(ncfile, varname, convert_date = TRUE)
 \item{ncfile}{filename of the netcdf file}
 
 \item{varname}{name of the variable to extract}
+
+\item{convert_date}{Convert time information into Date/Datetime object. Defaults to TRUE.
+This parameter is only used, when a date/time variable is found.}
 }
 \value{
 A data frame containing three columns.

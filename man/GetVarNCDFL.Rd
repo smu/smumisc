@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetVarNCDF.R
 \name{GetVarNCDFL}
 \alias{GetVarNCDFL}
-\title{GetVarNCDFTL extract variable with one dimension of lat|lon|lev.}
+\title{GetVarNCDFL extract variable with one dimension of lat|lon|lev.}
 \usage{
 GetVarNCDFL(ncfile, varname)
 }
@@ -15,6 +15,6 @@ GetVarNCDFL(ncfile, varname)
 A data frame containing two columns.
 }
 \description{
-GetVarNCDFTL extract variable with one dimension of lat|lon|lev.
+GetVarNCDFL extract variable with one dimension of lat|lon|lev.
 }
 

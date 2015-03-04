@@ -11,12 +11,12 @@ GetVarNCDF(ncfile, varname, finddim, convert_date = TRUE)
 
 \item{varname}{name of the variable to extract.}
 
-\item{convert_date}{Convert time information into Date/Datetime object. Defaults to TRUE.
-This parameter is only used, when a date/time variable is found.}
-
-\item{vector}{of dimension variables, e.g, c('time','lat','lev').
+\item{finddim}{vector of dimension variables, e.g, c('time','lat','lev').
 For dimensionless variables, e.g, global mean values, and empty vector or NULL
 should be used.}
+
+\item{convert_date}{Convert time information into Date/Datetime object. Defaults to TRUE.
+This parameter is only used, when a date/time variable is found.}
 }
 \value{
 A data frame containing at least a single column (value) for the variable value(s)

@@ -77,7 +77,7 @@ ConvertTime  <- function(time, unit){
 #'
 #' @param ncfile filename of the netcdf file.
 #' @param varname name of the variable to extract. 
-#' @param vector of dimension variables, e.g, c('time','lat','lev'). 
+#' @param finddim vector of dimension variables, e.g, c('time','lat','lev'). 
 #'        For dimensionless variables, e.g, global mean values, and empty vector or NULL
 #'        should be used.
 #' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
@@ -317,6 +317,8 @@ GetVarNCDFLL <- function(ncfile, varname) {
 #'
 #' @param ncfile filename of the netcdf file
 #' @param varname name of the variable to extract
+#' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
+#'        This parameter is only used, when a date/time variable is found.
 #' @return A data frame containing three columns.
 #'      
 #'
@@ -396,6 +398,8 @@ GetVarNCDFLLL <- function(ncfile, varname) {
 #' GetVarNCDFTLLL extract variable with time, lat, lon, and lev dimension.
 #'
 #' @param ncfile filename of the netcdf file
+#' @param convert_date Convert time information into Date/Datetime object. Defaults to TRUE.
+#'        This parameter is only used, when a date/time variable is found.
 #' @param varname name of the variable to extract
 #' @return A data frame containing five columns.
 #'      
@@ -433,7 +437,7 @@ GetVarNCDFTLLL <- function(ncfile, varname, convert_date = TRUE) {
 }
 
 #'
-#' GetVarNCDFTL extract variable with one dimension of lat|lon|lev.
+#' GetVarNCDFL extract variable with one dimension of lat|lon|lev.
 #'
 #' @param ncfile filename of the netcdf file
 #' @param varname name of the variable to extract
