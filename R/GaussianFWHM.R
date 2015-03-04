@@ -5,28 +5,39 @@
 #'            http://en.wikipedia.org/wiki/Gaussian_function
 #'
 #' @param x data vector 
-#' @param win window size. For sides==2 the actual window size is (win*2)+1.
-#' @param sides left sided (1) or two-sided (2, default) filter. 
+#' @param win filter window 
+#' @param sides left sided (1), right sided (-1), or two-sided (2, default) filter. 
 #'        Right sided filter is not yet implemented.
 #' @return vector with filtered values.
 
 GaussianFWHM <- function(x, win, sides = 2){ 
-    if (length(x) < sides*win){
+    if (length(x) < abs(sides*win)){
         warning("GaussianFWHM: windowssize to small")
         return (rep(NA, length(x)))
     }   
-    # steps
-    if (sides == 2) { 
-        steps <- seq(-win, win, 1)
-        FWHM <- 2*win + 1 
-    } else { 
-        #  steps <- seq(-win, 0, 1) 
-        steps <- seq(0, win, 1)  
-        FWHM <- win + 1 
-    }   
-    .gfcoeffs <- function(s, t) {
+    if (sides %in% c(-1,1,2)) {
+        # steps
+        if (sides == 2) { # centered
+            winhalf <- floor(win/2)
+            if ( (win %% 2) == 0 ){
+                steps <- seq(-1 * winhalf, winhalf-1, 1 )
+            } else {
+                steps <- seq(-1 * winhalf, winhalf, 1 )
+            }
+        } 
+        if(sides == 1) { # left
+            steps <- seq(0, win-1, 1)  
+        }   
+        if(sides == -1){ # right
+            steps <- seq(win-1, 0, 1)  
+        }   
+    } else {
+        stop(paste(sides, 'not supported.'))
+    }
+
+    .gfcoeffs <- function(sigma, x) {
         # http://en.wikipedia.org/wiki/Gaussian_filter#Definition
-        return ( exp(-(t^2/(2*s^2)))/sqrt(2*pi*s^2) )
+        return ( exp(-(x^2/(2*sigma^2)))/sqrt(2*pi*sigma) )
     }   
     # calculate sigma based on FWHM (aka, win)
     # see: http://en.wikipedia.org/wiki/Full_width_at_half_maximum

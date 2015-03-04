@@ -9,9 +9,9 @@ GaussianFWHM(x, win, sides = 2)
 \arguments{
 \item{x}{data vector}
 
-\item{win}{window size. For sides==2 the actual window size is (win*2)+1.}
+\item{win}{filter window}
 
-\item{sides}{left sided (1) or two-sided (2, default) filter.
+\item{sides}{left sided (1), right sided (-1), or two-sided (2, default) filter.
 Right sided filter is not yet implemented.}
 }
 \value{
