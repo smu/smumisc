@@ -11,5 +11,5 @@ GlobalMean <- function(d){
     colats <- cos(rlats)     
     weights <- colats / sum(colats)   
     gmean  <- sum(d$value * weights)
-    return(gmean)               
+    return(c('value'=gmean))
 }     

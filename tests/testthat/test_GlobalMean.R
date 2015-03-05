@@ -29,8 +29,8 @@ d_R <- ddply(d, .(date), GlobalMean)
 
 
 test_that('YearMean == "cdo -fldmean"', {
-          expect_equal(d_R$V1[1], d_cdo$value[1], tolerance = 1e-6)
-          expect_equal(d_R$V1[nrow(d_R)], d_cdo$value[nrow(d_cdo)], tolerance = 1e-6)
+          expect_equal(d_R$value[1], d_cdo$value[1], tolerance = 1e-6)
+          expect_equal(d_R$value[nrow(d_R)], d_cdo$value[nrow(d_cdo)], tolerance = 1e-6)
 })
 
 
