@@ -45,5 +45,5 @@ GaussianFWHM <- function(x, win, sides = 2){
     sigma <-  win / sqrt(8*log(2))
     weight <- .gfcoeffs(sigma, steps)
     weight <- weight / sum(weight)
-    stats::filter(x, weight, sides = sides)
+    return(as.numeric(stats::filter(x, weight, sides = sides)))
 }
