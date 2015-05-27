@@ -56,7 +56,7 @@ require(RCurl)
 
 # From the Community Climate System Model (CCSM), one time step of precipitation
 # flux, air temperature, and eastward wind. 
-URL <- "http://www.unidata.ucar.edu/software/netcdf/examples/sresa1b_ncar_ccsm3_0_run1_200001.nc"
+URL <- "https://www.unidata.ucar.edu/software/netcdf/examples/sresa1b_ncar_ccsm3-example.nc"
 curl <- getCurlHandle()
 bfile <- getBinaryURL(URL, curl = curl,noprogress = TRUE)
 writeBin(bfile, "example1.nc")
