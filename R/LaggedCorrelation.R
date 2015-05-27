@@ -9,7 +9,7 @@
 #' @return data frame containing the lag applied, the correlation coefficient (r), the p-value (p) and the number of independent observations used to calculate the p-value.
 
 
-LaggedCorrelate <- function(x, y, lags, independent.obs = length(x), parallel = T){ 
+LaggedCorrelation <- function(x, y, lags, independent.obs = length(x), parallel = T){ 
     # A function to correlated two 1D-Variables with different lags.
     # correlation is done in parallel if doMC is loaded and intialized
     # order is important:
