@@ -4,7 +4,7 @@
 \alias{SeasonalMean}
 \title{Calculate seasonal means from data.table}
 \usage{
-SeasonalMean(data, season, na.rm = FALSE)
+SeasonalMean(data, season, variable = "value", na.rm = FALSE)
 }
 \arguments{
 \item{data}{data table containing the columns date (Date object) and value (the variable)}
