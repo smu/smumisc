@@ -10,7 +10,7 @@ CDO(..., sep = "", debug = FALSE)
 \item{...}{one or more arguments of type string, which can be concatenated
 using the paste function (e.g. '-yseasmean', '-fldmean').
 Additionally, parameter for the system function can be passed, e.g.,
-'intern = TRUE' to capture the output of the cdo command.}
+\code{intern = TRUE} to capture the output of the cdo command.}
 
 \item{sep}{character used to seperate the terms. Used in the paste function.}
 
@@ -18,6 +18,12 @@ Additionally, parameter for the system function can be passed, e.g.,
 }
 \description{
 System call of the cdo binary.
+}
+\section{Details}{
+
+     The behaviour of some cdo commands is control by environment variables.
+     These need to defined prior to the CDO call using \code{Sys.setenv(...)}, e.g,
+     \code{Sys.setenv('CDO_WEIGHT_MODE' = 'off')}
 }
 \examples{
 infile <- "~/data/u_50hPa_era40_DJF.grb"
