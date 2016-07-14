@@ -36,14 +36,17 @@ ConvertTime  <- function(time, unit){
             #first_time <- sub(".* (\\d+-\\d+-\\d+ \\d{2}:\\d{2}:\\d{2}).*", "\\1", unit, perl=TRUE)
             #time = time * 60 # da R sekunden erwartet
             #time <- as.POSIXlt(time, origin=first_time)
-            first_time <- sub(".* (\\d+-\\d+-\\d+) \\d{2}:\\d{2}:\\d{2}.*", "\\1", unit, perl = TRUE)
-            time <- time/1440
-            time <- as.Date(time, origin = first_time)
+            first_time <- sub(".* (\\d+-\\d+-\\d+ \\d{2}:\\d{2}:\\d{2}).*", "\\1", unit, perl = TRUE)
+            #time <- time/1440
+            time <- time * 60
+            # TODO: consider timezone
+            time <- as.POSIXlt(time, origin = first_time)
             return(time)
          } else {
             if (length(grep('hours since', unit)) > 0)  {
                 first_time <- sub(".* (\\d+-\\d+-\\d+ \\d{2}:\\d{2}:\\d{2}).*", "\\1", unit, perl = TRUE)
                 time = time * 60 * 60 # R expects seconds here
+                # TODO: consider timezone
                 time <- as.POSIXlt(time, origin = first_time)
                 return(time)
             } else {

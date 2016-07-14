@@ -1,8 +1,26 @@
 library(smumisc)
 context('GetVarNCDF')
 
-# TODO: test ConvertTime
+# test ConvertTime
+mintimes <- ConvertTime(time=seq(1,6), unit = "minutes since 2012-01-01 00:00:00")
+hourtimes <- ConvertTime(time=seq(1,6), unit = "hours since 2012-01-01 00:00:00")
+daytimes <- ConvertTime(time=seq(1,6), unit = "days since 2012-01-01")
 
+test_that("ConvertTime class is Date/POSIXlt",{
+          expect_true(class(hourtimes)[1] == 'POSIXlt')
+          expect_true(class(mintimes)[1] == 'POSIXlt')
+          expect_true(class(daytimes) == 'Date')
+})
+
+# TODO: consider timezone
+#test_that("ConvertTime output", {
+          #expect_true(mintimes[2] == as.POSIXlt('"2012-01-01 01:02:00 CET"'))
+#})
+
+
+
+
+# test NCDF functions
 
 fname = system.file("extdata", "example_tll.nc", package = "smumisc")
 test_that('Example netcdf file exists', {
