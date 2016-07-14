@@ -31,8 +31,9 @@ test_that('Variable names are correct', {
 # test failures
 test_that('Test wrong dimensions with name', {
     expect_error(GetVarNCDF(fname, 'temp2', c('lat','lon','date')),
-            "Error in GetVarNCDF")
+           "Couldn't find dimension variable.*:  lon,lat,NA")
 })
+
 
 # will produce some output, therefore deactivated for the moment.
 #  test_that('Test wrong variable name', {
