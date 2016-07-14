@@ -135,7 +135,7 @@ GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
                 } else {
                   time.unit <- ncatt_get(f, 'time', 'units')
                 }
-                values <- as.Date(ConvertTime(values, time.unit[2]))
+                values <- ConvertTime(values, time.unit[2])
             }
             assign(vdim$name, values)
             dims.found[j] <- vdim$name
