@@ -1,6 +1,6 @@
 Package: smumisc
 Title: Miscellaneous R functions mainly related to climate model data analysis and statistics.
-Version: 0.01
+Version: 0.02
 Author: Stefan Muthers
 Maintainer: Stefan Muthers <smu@z107.de>
 Description: Contains a number of functions useful to extract variables from
@@ -8,7 +8,7 @@ Description: Contains a number of functions useful to extract variables from
         (seasonal or annual averages, climatologies, smoothing, ...) and data
         presentation.
 Depends: R (>= 3.0.0)
-Imports: stringr, ncdf
-Suggests: testthat
+Imports: stringr, ncdf4
+Suggests: testthat, ncdf, RCurl
 License: GPL (>= 2)
 LazyData: true

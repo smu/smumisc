@@ -69,6 +69,13 @@ ConvertTime  <- function(time, unit){
 }# end function: convert_time
 
 
+useNC4 <- TRUE
+
+if(!require(ncdf4)) {
+  require(ncdf)
+  useNC4 <- FALSE
+} else {
+}
 
 # the next one is the general function, shortcuts for different
 # cases follow below.
@@ -90,10 +97,17 @@ ConvertTime  <- function(time, unit){
 #'      d <- GetVarNCDF(ncfile, 'slp', c('lon','lat','time'))
 #'
 GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
-    require(ncdf, quietly = TRUE)
-    f = open.ncdf(ncfile)
-    # get variable
-    variable <- get.var.ncdf(f, varname)
+    if (!useNC4) {
+      require(ncdf, quietly = TRUE)
+      f = open.ncdf(ncfile)
+      # get variable
+      variable <- get.var.ncdf(f, varname)
+    } else {
+      require(ncdf4, quietly = TRUE)
+      f = nc_open(ncfile)
+      # get variable
+      variable <- ncvar_get(f, varname)
+    }
     dims <- dim(variable)
     ndim <- length(finddim)
     if ((length(dims) != ndim) & (!is.null(finddim))) {
@@ -107,9 +121,17 @@ GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
     for(i in seq_along(f$var[[varname]]$dim)){
         vdim <- f$var[[varname]]$dim[[i]]
         if((vdim$len > 1) & (vdim$name %in% finddim)){
-            values <- get.var.ncdf(f, vdim$name)
+            if (!useNC4) {
+              values <- get.var.ncdf(f, vdim$name)
+            } else {
+              values <- ncvar_get(f, vdim$name)
+            }
             if ((vdim$name == 'time') & convert_date){
-                time.unit <- att.get.ncdf(f, 'time', 'units')
+                if (!useNC4) {
+                  time.unit <- att.get.ncdf(f, 'time', 'units')
+                } else {
+                  time.unit <- ncatt_get(f, 'time', 'units')
+                }
                 values <- as.Date(ConvertTime(values, time.unit[2]))
             }
             assign(vdim$name, values)
@@ -122,7 +144,11 @@ GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
             paste(dims.found, collapse = ','))
         stop(msg)
     }
-    close.ncdf(f)
+    if (!useNC4) {
+      close.ncdf(f)
+    } else {
+      nc_close(f)
+    }
     # check that all finddim were found
     for (dimname in finddim){
         if (dimname %in% dims.found){
@@ -194,8 +220,17 @@ GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
 #' @return a vector of dimensions names.
 #'
 GetDimNCDF <- function(ncfile, varname){
-    require(ncdf, quietly = TRUE)
-    f = open.ncdf(ncfile)
+    if (!useNC4) {
+      require(ncdf, quietly = TRUE)
+      f = open.ncdf(ncfile)
+      # get variable
+      variable <- get.var.ncdf(f, varname)
+    } else {
+      require(ncdf4, quietly = TRUE)
+      f = nc_open(ncfile)
+      # get variable
+      variable <- ncvar_get(f, varname)
+    }
     dims.found <- NULL
     for(i in seq_along(f$var[[varname]]$dim)){
         vdim <- f$var[[varname]]$dim[[i]]
@@ -203,7 +238,11 @@ GetDimNCDF <- function(ncfile, varname){
             dims.found <- c(dims.found, vdim$name)
         }
     }
-    close.ncdf(f)
+    if (!useNC4) {
+      close.ncdf(f)
+    } else {
+      nc_close(f)
+    }
     return(dims.found)
 }
 
