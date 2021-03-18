@@ -1,9 +1,15 @@
-name: deploy_debian_cran
+name: test_install_debian
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Test something
-      run:  sh ci/test.sh
+    - name: install dependencies 
+      run:  bash ci/install_R_dependencies.sh
+    - name: install cdo
+      run: |
+         sudo apt update
+         sudo apt install cdo
+    - name: Test package build
+      run:  sh ci/test_build.sh
