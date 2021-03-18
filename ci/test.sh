@@ -3,7 +3,7 @@
 
 set -e 
 
-R --vanilla <<EOF
+sudo R --vanilla <<EOF
 install.packages(c('RCurl','ncdf','testthat'), repos='http://cran.us.r-project.org')
 q()
 EOF
