@@ -1,0 +1,17 @@
+name: test_install_debian
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: install dependencies 
+      run:  |
+         sudo apt-get update
+         sudo apt-get install libnetcdf-dev  libnetcdf15 texlive-latex-base texlive-fonts-extra
+         bash ci/install_R_dependencies.sh
+    - name: install cdo
+      run: |
+         sudo apt-get install cdo
+    - name: Test package build
+      run:  sh ci/test_build.sh

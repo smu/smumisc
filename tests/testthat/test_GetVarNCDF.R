@@ -81,7 +81,7 @@ bfile <- getBinaryURL(URL, curl = curl,noprogress = TRUE)
 writeBin(bfile, "example1.nc")
 
 # Sea surface temperatures collected by PCMDI for use by the IPCC. 
-URL <- "http://www.unidata.ucar.edu/software/netcdf/examples/tos_O1_2001-2002.nc"
+URL <- "https://www.unidata.ucar.edu/software/netcdf/examples/tos_O1_2001-2002.nc"
 bfile <- getBinaryURL(URL, curl = curl,noprogress = TRUE)
 writeBin(bfile, "example2.nc")
 rm(curl, bfile)
