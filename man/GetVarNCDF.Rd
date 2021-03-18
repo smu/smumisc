@@ -27,7 +27,7 @@ Extracts data from netcdf file and returns a data.frame.
 }
 \examples{
      
-     ncfile <- 'example_tll.nc'
+     ncfile <- system.file("extdata", "example_tll.nc", package = "smumisc")
      d <- GetVarNCDF(ncfile, 'slp', c('lon','lat','time'))
 
 }

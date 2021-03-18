@@ -21,8 +21,8 @@ GetVarNCDFT is a shortcut for GetVarNCDF(ncfile, varname, c('time')
 }
 \examples{
      
-     ncfile <- 'example_t.nc'
-     d <- GetVarNCDF(ncfile, 'slp')
+     ncfile <- system.file("extdata", "example_t.nc", package = "smumisc")
+     d <- GetVarNCDFT(ncfile, 'slp')
 
 
 }

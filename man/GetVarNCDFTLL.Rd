@@ -21,8 +21,8 @@ GetVarNCDFTLL extract variable with time dimensions and two of lat|lon|lev.
 }
 \examples{
      
-     ncfile <- 'example_tll.nc'
-     d <- GetVarNCDF(ncfile, 'slp')
+     ncfile <- system.file("extdata", "example_tll.nc", package = "smumisc")
+     d <- GetVarNCDFTLL(ncfile, 'slp')
 
 
 }

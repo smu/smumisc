@@ -96,7 +96,7 @@ if(!require(ncdf4)) {
 #'         and possible additional columns for each dimension variable.
 #' @examples
 #'      
-#'      ncfile <- 'example_tll.nc'
+#'      ncfile <- system.file("extdata", "example_tll.nc", package = "smumisc")
 #'      d <- GetVarNCDF(ncfile, 'slp', c('lon','lat','time'))
 #'
 GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
@@ -259,8 +259,8 @@ GetDimNCDF <- function(ncfile, varname){
 #' @return A data frame containing two columns (date, value)
 #' @examples
 #'      
-#'      ncfile <- 'example_t.nc'
-#'      d <- GetVarNCDF(ncfile, 'slp')
+#'      ncfile <- system.file("extdata", "example_t.nc", package = "smumisc")
+#'      d <- GetVarNCDFT(ncfile, 'slp')
 #'
 #'
 GetVarNCDFT <- function(ncfile, varname, convert_date = TRUE) {
@@ -277,8 +277,8 @@ GetVarNCDFT <- function(ncfile, varname, convert_date = TRUE) {
 #' @return A data frame containing four columns.
 #' @examples
 #'      
-#'      ncfile <- 'example_tll.nc'
-#'      d <- GetVarNCDF(ncfile, 'slp')
+#'      ncfile <- system.file("extdata", "example_tll.nc", package = "smumisc")
+#'      d <- GetVarNCDFTLL(ncfile, 'slp')
 #'
 #'
 GetVarNCDFTLL <- function(ncfile, varname, convert_date = TRUE) {
