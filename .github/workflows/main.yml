@@ -8,7 +8,8 @@ jobs:
     - name: install dependencies 
       run:  |
          sudo apt-get update
-         sudo apt-get install r-base-core r-cran-ncdf4
+         apt-cache search libnetcdf
+         sudo apt-get install libnetcdf-dev 
          bash ci/install_R_dependencies.sh
     - name: install cdo
       run: |
