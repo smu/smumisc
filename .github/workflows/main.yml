@@ -8,7 +8,7 @@ jobs:
     - name: install dependencies 
       run:  |
          sudo apt-get update
-         sudo apt-get install libnetcdf-dev  libnetcdf15 pdflatex
+         sudo apt-get install libnetcdf-dev  libnetcdf15 texlive-latex-base
          bash ci/install_R_dependencies.sh
     - name: install cdo
       run: |
