@@ -8,8 +8,7 @@ jobs:
     - name: install dependencies 
       run:  |
          sudo apt-get update
-         apt-cache search libnetcdf
-         sudo apt-get install libnetcdf-dev 
+         sudo apt-get install libnetcdf-dev  libnetcdf15
          bash ci/install_R_dependencies.sh
     - name: install cdo
       run: |
