@@ -96,7 +96,7 @@ if(!require(ncdf4)) {
 #'         and possible additional columns for each dimension variable.
 #' @examples
 #'      
-#'      ncfile <- 'example.nc'
+#'      ncfile <- 'example_tll.nc'
 #'      d <- GetVarNCDF(ncfile, 'slp', c('lon','lat','time'))
 #'
 GetVarNCDF <- function(ncfile, varname, finddim, convert_date = TRUE){
@@ -259,7 +259,7 @@ GetDimNCDF <- function(ncfile, varname){
 #' @return A data frame containing two columns (date, value)
 #' @examples
 #'      
-#'      ncfile <- 'example.nc'
+#'      ncfile <- 'example_t.nc'
 #'      d <- GetVarNCDF(ncfile, 'slp')
 #'
 #'
@@ -277,7 +277,7 @@ GetVarNCDFT <- function(ncfile, varname, convert_date = TRUE) {
 #' @return A data frame containing four columns.
 #' @examples
 #'      
-#'      ncfile <- 'example.nc'
+#'      ncfile <- 'example_tll.nc'
 #'      d <- GetVarNCDF(ncfile, 'slp')
 #'
 #'

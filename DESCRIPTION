@@ -12,3 +12,4 @@ Imports: stringr, ncdf4
 Suggests: testthat, ncdf, RCurl
 License: GPL (>= 2)
 LazyData: true
+RoxygenNote: 7.1.1
