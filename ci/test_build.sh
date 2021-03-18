@@ -20,7 +20,7 @@ set -e
 #make
 #sudo make install
 
-export R_CHECK_FORCE_SUGGESTS=false
+export _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 R CMD build .
 R CMD check *.tar.gz
