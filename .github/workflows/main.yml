@@ -6,7 +6,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: install dependencies 
-      run:  bash ci/install_R_dependencies.sh
+      run:  |
+         sudo apt install r-cran-ncdf4
+         bash ci/install_R_dependencies.sh
     - name: install cdo
       run: |
          sudo apt update
