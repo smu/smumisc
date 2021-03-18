@@ -24,4 +24,4 @@ export _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 R CMD build .
 R CMD check *.tar.gz
-R CMD INSTALL *.tar.gz
+sudo R CMD INSTALL *.tar.gz
